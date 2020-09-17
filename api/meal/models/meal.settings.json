@@ -1,0 +1,44 @@
+{
+  "kind": "collectionType",
+  "collectionName": "meals",
+  "info": {
+    "name": "Meal"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true
+  },
+  "attributes": {
+    "Name": {
+      "type": "string"
+    },
+    "Description": {
+      "type": "text"
+    },
+    "Image": {
+      "collection": "file",
+      "via": "related",
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos"
+      ],
+      "plugin": "upload",
+      "required": false
+    },
+    "Available": {
+      "type": "boolean"
+    },
+    "URL": {
+      "type": "uid",
+      "targetField": "Name"
+    },
+    "TimeToPrepare": {
+      "type": "integer"
+    },
+    "items": {
+      "via": "meal",
+      "collection": "item"
+    }
+  }
+}

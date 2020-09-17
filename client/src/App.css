@@ -1,0 +1,106 @@
+body {
+  overflow-x: hidden;
+}
+
+.hero {
+  height: 90vh;
+}
+
+.image {
+  perspective-origin: "left center";
+  transform-style: "preserve-3d";
+  perspective: 1500;
+}
+
+.image img {
+  max-width: 90%;
+  height: auto;
+  transform: rotateY(-35deg) rotateX(15deg);
+  backface-visibility: hidden;
+  box-shadow: rgba(0, 0, 0, 0.7);
+}
+
+.hero-text h1 {
+  margin-top: 1rem;
+  font-weight: bold;
+  font-size: 4.5rem;
+  letter-spacing: normal;
+}
+
+.hero-text p {
+  font-size: 1.5rem;
+}
+
+.card-hover {
+  cursor: pointer;
+  transition: all 0.5s ease-in-out;
+}
+
+.card-hover:hover {
+  transform: scale(1.1);
+}
+
+.meals-box {
+  background: #e3e3e3;
+}
+
+.meal-order {
+  max-width: 300px;
+  height: 300px;
+}
+
+.meal-order img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}
+
+.details p {
+  font-size: 1.2rem;
+}
+
+/* misc */
+
+.primary-font {
+  font-family: "Roboto", sans-serif;
+}
+
+.nav-item .nav-link.active {
+  color: #20c997 !important;
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  margin: auto;
+  gap: 10px;
+}
+
+.table-image {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+
+.add {
+  cursor: pointer;
+  transition: all 0.5s ease-in-out;
+}
+
+.add:hover {
+  background: rgb(9, 9, 26);
+  color: #fff;
+}
+
+.alert-top {
+  position: fixed;
+  top: 0;
+  right: 0;
+  transition: all 0.5s ease-in-out;
+  transform: translateX(100%);
+  z-index: 1000;
+}
+
+.alert-top.show {
+  transform: translateX(0%);
+}
