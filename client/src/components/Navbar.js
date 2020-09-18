@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 
 const Navbar = () => {
+  const [collapse, setCollapse] = useState(false);
+
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
       <NavLink className="navbar-brand" to="/">
@@ -15,11 +17,15 @@ const Navbar = () => {
         aria-controls="navbarColor01"
         aria-expanded="true"
         aria-label="Toggle navigation"
+        onClick={() => setCollapse(!collapse)}
       >
         <span className="navbar-toggler-icon"></span>
       </button>
 
-      <div className="navbar-collapse collapse show" id="navbarColor01">
+      <div
+        className={`navbar-collapse collapse ${collapse && "show"}`}
+        id="navbarColor01"
+      >
         <ul className="navbar-nav ml-auto">
           <li className="nav-item">
             <NavLink className="nav-link" to="/">

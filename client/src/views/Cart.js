@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchCart } from "../store/actions/mealAction";
+import { currencyFormatter } from "../utils/formatter";
 
 const url = "http://localhost:1337";
 
@@ -25,7 +26,7 @@ const Cart = () => {
           </th>
           <td>{item.Name}</td>
           <td>{item.Description}</td>
-          <td>‎₦{item.Price}</td>
+          <td>{currencyFormatter(item.Price)}</td>
         </tr>
       );
     });
@@ -56,7 +57,7 @@ const Cart = () => {
             </table>
           </div>
           <div className="col-md-4 col-12">
-            <h3>Your Total Price : ‎₦{computePrice}</h3>
+            <h3>Your Total Price : {currencyFormatter(computePrice)}</h3>
             <button type="button" className="btn btn-danger my-2">
               Checkout
             </button>

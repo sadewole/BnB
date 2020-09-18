@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchOneMeal, addToCart } from "../store/actions/mealAction";
+import { currencyFormatter } from "../utils/formatter";
 
 const url = "http://localhost:1337";
 
@@ -13,7 +14,15 @@ const MealDetails = () => {
 
   useEffect(() => {
     dispatch(fetchOneMeal(id));
-  }, []);
+
+    let alertPop = setInterval(function () {
+      if (pop) {
+        setPop(false);
+
+        clearInterval(alertPop);
+      }
+    }, 3000);
+  }, [pop]);
 
   const loadImages = (imgs) => {
     return imgs.map((img, index) => {
@@ -32,12 +41,10 @@ const MealDetails = () => {
   const handleAdd = (item) => {
     dispatch(addToCart(item));
     alert();
-
-    setTimeout(alert, 800);
   };
 
-  const loadItems = (items) => {
-    return items.map((item) => {
+  const loadItems = (meal) => {
+    return meal.items.map((item) => {
       return (
         <tr className="table-light" key={item.id}>
           <th scope="row">
@@ -49,9 +56,13 @@ const MealDetails = () => {
           </th>
           <td>{item.Name}</td>
           <td>{item.Description}</td>
-          <td>‎₦{item.Price}</td>
+          <td>{currencyFormatter(item.Price)}</td>
           <td onClick={() => handleAdd(item)}>
-            <i className="fas fa-plus-circle fa-2x add"></i>
+            <i
+              className={`fas fa-plus-circle fa-2x add ${
+                !meal.Available && "disabled"
+              }`}
+            ></i>
           </td>
         </tr>
       );
@@ -61,13 +72,13 @@ const MealDetails = () => {
   return (
     <div className="container details my-5">
       <div
-        class={`alert alert-dismissible alert-secondary alert-top ${
+        className={`alert alert-dismissible alert-secondary alert-top ${
           pop ? "show" : ""
         }`}
       >
         <button
           type="button"
-          class="close"
+          className="close"
           data-dismiss="alert"
           onClick={() => setPop(false)}
         >
@@ -87,10 +98,21 @@ const MealDetails = () => {
                   <h1>{meal.Name}</h1>
                 </div>
                 <p>{meal.Description}</p>
-                <p>
-                  Time to prepare:{" "}
-                  <span className="badge badge-info">{meal.TimeToPrepare}</span>
-                </p>
+                <div className="d-flex justify-content-between">
+                  <p>
+                    Time to prepare:{" "}
+                    <span className="badge badge-info">
+                      {meal.TimeToPrepare}
+                    </span>
+                  </p>
+                  <span
+                    className={`badge badge-pill ${
+                      meal.Available ? "badge-success" : "badge-warning"
+                    }`}
+                  >
+                    {meal.Available ? "Available" : "Sold Out"}
+                  </span>
+                </div>
 
                 <h5>
                   Chef: {meal.created_by.firstname} {meal.created_by.lastname}
@@ -111,7 +133,7 @@ const MealDetails = () => {
                   <th scope="col"></th>
                 </tr>
               </thead>
-              <tbody>{loadItems(meal.items)}</tbody>
+              <tbody>{loadItems(meal)}</tbody>
             </table>
           </div>
         </>

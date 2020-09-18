@@ -14,14 +14,11 @@ const MealCatalog = () => {
   }, []);
 
   return (
-    <section className="row">
+    <section className="grid-row">
       {meals &&
         meals.map((item) => {
           return (
-            <div
-              className="card m-2 col-12 col-md-6 col-lg-4 col-xl-3 card-hover"
-              key={item.id}
-            >
+            <div className="card m-2 card-hover" key={item.id}>
               <Link to={`/meal-details/${item.id}`}>
                 <img
                   style={{ height: "250px", width: "100%", display: "block" }}
