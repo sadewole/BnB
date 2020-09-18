@@ -6,6 +6,7 @@ import { currencyFormatter } from "../utils/formatter";
 const url = "http://localhost:1337";
 
 const Cart = () => {
+  let computePrice;
   const { cartItems } = useSelector((state) => state.meals);
   const dispatch = useDispatch();
 
@@ -32,9 +33,11 @@ const Cart = () => {
     });
   };
 
-  const computePrice =
-    cartItems &&
-    cartItems.data.reduce((acc, item) => acc + item.Price, 0).toFixed(2);
+  if (cartItems && cartItems.data) {
+    computePrice = cartItems.data
+      .reduce((acc, item) => acc + item.Price, 0)
+      .toFixed(2);
+  }
 
   return (
     <div className="container">
